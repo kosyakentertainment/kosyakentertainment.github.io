@@ -1,0 +1,451 @@
+/* ==========================================================================
+   KOSYAK — style.css
+   Design tokens live at the top. Change colors/fonts here to restyle
+   the whole site in one place.
+   ========================================================================== */
+
+:root {
+  --bg:        #ffffff;
+  --paper:     #f6f6f4;
+  --ink:       #111111;
+  --ink-soft:  #3a3a3a;
+  --grey:      #8a8a8a;
+  --line:      #e4e4e1;
+
+  --font-display: "Anton", "Arial Narrow", sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --gutter: clamp(20px, 5vw, 64px);
+  --nav-h: 72px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+a { color: inherit; text-decoration: none; }
+
+.wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* ---------- utility text styles ---------- */
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+}
+
+/* ---------- nav ---------- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-nav .wrap {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(16px, 3vw, 36px);
+}
+
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  border-color: var(--ink);
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  padding-top: clamp(48px, 10vh, 120px);
+  padding-bottom: clamp(40px, 8vh, 96px);
+  text-align: center;
+}
+
+.hero .eyebrow {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.hero-mark {
+  font-size: clamp(3.2rem, 15vw, 11rem);
+  margin: 0;
+}
+
+.hero-sub {
+  max-width: 34ch;
+  margin: 28px auto 0;
+  color: var(--ink-soft);
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+}
+
+/* ---------- marquee (signature element) ---------- */
+
+.marquee {
+  background: var(--ink);
+  color: var(--bg);
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.marquee-track {
+  display: inline-flex;
+  animation: marquee 26s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track span {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.8rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 14px 2.5rem;
+  display: inline-block;
+}
+
+.marquee-track span::after {
+  content: "—";
+  margin-left: 2.5rem;
+  opacity: 0.5;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* ---------- section headers ---------- */
+
+.section-head {
+  padding-top: clamp(56px, 9vh, 104px);
+  padding-bottom: clamp(28px, 5vh, 48px);
+}
+
+.section-head .display {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+}
+
+.section-head p {
+  margin-top: 14px;
+  color: var(--grey);
+  max-width: 46ch;
+}
+
+/* ---------- product grid ---------- */
+
+.wrap--shop {
+  padding-top: clamp(28px, 5vh, 48px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(32px, 4vw, 56px) clamp(20px, 3vw, 40px);
+  padding-bottom: clamp(64px, 10vh, 120px);
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.product-card {
+  display: block;
+}
+
+.product-card figure {
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10%;
+}
+
+.product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover img,
+.product-card:focus-visible img {
+  transform: scale(1.04);
+}
+
+.product-card figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.product-name {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.product-price {
+  font-size: 0.66rem;
+  color: var(--grey);
+}
+
+.empty-state {
+  padding: 60px var(--gutter) 100px;
+  text-align: center;
+  color: var(--grey);
+}
+
+/* ---------- product detail ---------- */
+
+.product-detail {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(32px, 6vw, 80px);
+  padding-top: clamp(32px, 6vh, 64px);
+  padding-bottom: clamp(64px, 10vh, 120px);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .product-detail { grid-template-columns: 1fr; }
+}
+
+.product-detail figure {
+  margin: 0;
+  background: var(--paper);
+}
+
+.product-detail img {
+  width: 100%;
+  height: auto;
+}
+
+.product-detail-info {
+  position: sticky;
+  top: calc(var(--nav-h) + 32px);
+}
+
+.product-detail-info .display {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  margin-bottom: 10px;
+}
+
+.product-detail-price {
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+}
+
+.product-detail-desc {
+  color: var(--ink-soft);
+  max-width: 42ch;
+  margin-bottom: 28px;
+}
+
+.product-detail-meta {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  margin-bottom: 32px;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border: 1px solid var(--ink);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.btn-ghost {
+  display: inline-block;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.back-link {
+  display: inline-block;
+  margin: 24px 0 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.back-link:hover { color: var(--ink); }
+
+/* ---------- contact page ---------- */
+
+.contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.contact-list li {
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  text-transform: uppercase;
+}
+
+.contact-list a span.arrow {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.contact-list a:hover span.arrow,
+.contact-list a:focus-visible span.arrow {
+  transform: translateX(6px);
+}
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 32px 0 48px;
+}
+
+.site-footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-note {
+  font-size: 0.78rem;
+  color: var(--grey);
+  letter-spacing: 0.04em;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.footer-links a:hover { color: var(--ink); }
